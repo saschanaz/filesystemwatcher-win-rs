@@ -5,8 +5,8 @@ fn print_file_info(info: &FILE_NOTIFY_INFORMATION) {
         FILE_ACTION_ADDED => println!("File added"),
         FILE_ACTION_REMOVED => println!("File removed"),
         FILE_ACTION_MODIFIED => println!("File modified"),
-        FILE_ACTION_RENAMED_NEW_NAME => println!("File renamed"),
-        FILE_ACTION_RENAMED_OLD_NAME => println!("File renamed"),
+        FILE_ACTION_RENAMED_NEW_NAME => println!("File renamed to"),
+        FILE_ACTION_RENAMED_OLD_NAME => println!("File renamed from"),
         _ => panic!("Unknown action: {:?}", info.Action),
     }
 
