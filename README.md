@@ -7,13 +7,18 @@ A sample ReadDirectoryChangesW usage in Rust.
 2. You'll see some logs like the following:
     ```
     File added
-    Name: b3zHTnIi.tar.part
+    Name: QaWJfiSR.tar.part
+    FileSize: 0
     File added
-    Name: firefox-99.0a1.en-US.linux-i686.awsy.tests(5).tar.gz
+    Name: firefox-99.0a1.en-US.linux-i686.awsy.tests.tar.gz
+    FileSize: 0
     File removed
-    Name: firefox-99.0a1.en-US.linux-i686.awsy.tests(5).tar.gz
-    File renamed
-    Name: b3zHTnIi.tar.part
-    File renamed
-    Name: firefox-99.0a1.en-US.linux-i686.awsy.tests(5).tar.gz
+    Name: firefox-99.0a1.en-US.linux-i686.awsy.tests.tar.gz
+    FileSize: 0
+    File renamed from
+    Name: QaWJfiSR.tar.part
+    FileSize: 23702
+    File renamed to
+    Name: firefox-99.0a1.en-US.linux-i686.awsy.tests.tar.gz
+    FileSize: 23702
     ```

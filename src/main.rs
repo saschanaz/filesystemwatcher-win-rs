@@ -1,6 +1,6 @@
 use windows::Win32::Storage::FileSystem::*;
 
-fn print_file_info(info: &FILE_NOTIFY_INFORMATION) {
+fn print_file_info(info: &FILE_NOTIFY_EXTENDED_INFORMATION) {
     match info.Action {
         FILE_ACTION_ADDED => println!("File added"),
         FILE_ACTION_REMOVED => println!("File removed"),
@@ -16,6 +16,7 @@ fn print_file_info(info: &FILE_NOTIFY_INFORMATION) {
     );
     let name = unsafe { String::from_utf16_lossy(&*str) };
     println!("Name: {}", name);
+    println!("FileSize: {}", info.FileSize);
 }
 
 unsafe fn read_dir_changes(dir: &str) {
@@ -31,7 +32,7 @@ unsafe fn read_dir_changes(dir: &str) {
     let mut buffer = [0u8; 1024];
     let mut bytes_returned = 0u32;
 
-    while ReadDirectoryChangesW(
+    while ReadDirectoryChangesExW(
         handle,
         buffer.as_mut_ptr() as _,
         1024,
@@ -40,10 +41,11 @@ unsafe fn read_dir_changes(dir: &str) {
         &mut bytes_returned,
         std::ptr::null_mut(),
         None,
+        ReadDirectoryNotifyExtendedInformation
     )
     .as_bool()
     {
-        let mut info: *const FILE_NOTIFY_INFORMATION = std::mem::transmute(&buffer);
+        let mut info: *const FILE_NOTIFY_EXTENDED_INFORMATION = std::mem::transmute(&buffer);
         print_file_info(&*info);
         while (*info).NextEntryOffset != 0 {
             let next = (*info).NextEntryOffset as usize;
